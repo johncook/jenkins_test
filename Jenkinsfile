@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
+                sh 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
                 sh 'composer install'
                 sh 'rm -rf build/api'
                 sh 'rm -rf build/coverage'
