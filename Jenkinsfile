@@ -27,6 +27,9 @@ pipeline {
         }
         stage('Test'){
             steps {
+                sh '(php -S localhost:8888 -t $(pwd)/drupal/web/ &) >> /dev/null 2>&1'
+                sh 'cd web && php ./core/scripts/run-tests.sh --dburl sqlite://tmp/tests.sqlite --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --concurrency 4 Batch'
+                /*
                 sh 'vendor/bin/phpunit -c build/phpunit.xml || exit 0'
                 step([
                     $class: 'XUnitBuilder',
@@ -34,6 +37,7 @@ pipeline {
                     tools: [[$class: 'JUnitType', pattern: 'build/logs/junit.xml']]
                 ])
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'build/coverage', reportFiles: 'index.html', reportName: 'Coverage Report', reportTitles: ''])
+                */
                 /* BROKEN step([$class: 'CloverPublisher', cloverReportDir: 'build/coverage', cloverReportFileName: 'build/logs/clover.xml']) */
                 /* BROKEN step([$class: 'hudson.plugins.crap4j.Crap4JPublisher', reportPattern: 'build/logs/crap4j.xml', healthThreshold: '10']) */
             }
