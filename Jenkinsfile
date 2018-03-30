@@ -10,7 +10,7 @@ pipeline {
                 sh 'rm -rf build/logs'
                 sh 'rm -rf build/pdepend'
                 sh 'rm -rf build/phpdox'
-                sh 'mkdir build/api'
+                sh 'mkdir -p build/api'
                 sh 'mkdir build/coverage'
                 sh 'mkdir build/logs'
                 sh 'mkdir build/pdepend'
