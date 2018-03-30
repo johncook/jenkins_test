@@ -45,8 +45,8 @@ pipeline {
         stage('Checkstyle') {
             steps {
                 sh 'phpcs --standard=Drupal -e'
-                /* sh 'vendor/bin/phpcs --report=checkstyle --report-file=`pwd`/build/logs/checkstyle.xml --standard=PSR2 --extensions=php --ignore=autoload.php --ignore=vendor/ . || exit 0'
-                chexckstyle pattern: 'build/logs/checkstyle.xml' */
+                sh 'phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md --ignore=node_modules,bower_components,vendor web/modules/custom || exit 0'
+                checkstyle pattern: 'build/logs/checkstyle.xml'
             }
         }
         stage('Lines of Code') { steps { sh 'vendor/bin/phploc --count-tests --exclude vendor/ --log-csv build/logs/phploc.csv --log-xml build/logs/phploc.xml .' } }
