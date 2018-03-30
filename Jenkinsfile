@@ -19,7 +19,7 @@ pipeline {
         }
         stage('PHP Syntax check') {
             steps {
-                sh 'vendor/bin/parallel-lint --ignore-fails web/modules/custom'
+                //sh 'vendor/bin/parallel-lint web/modules/custom'
             }
         }
         stage('Test'){
