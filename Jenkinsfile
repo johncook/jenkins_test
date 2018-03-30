@@ -1,10 +1,9 @@
 pipeline {
-    agent { docker { image 'php:alpine' } }
+    agent any
 
     stages {
         stage('Prepare') {
             steps {
-                sh 'curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer'
                 sh 'composer install'
                 sh 'rm -rf build/api'
                 sh 'rm -rf build/coverage'
@@ -16,6 +15,8 @@ pipeline {
                 sh 'mkdir build/logs'
                 sh 'mkdir build/pdepend'
                 sh 'mkdir build/phpdox'
+                sh 'cd web && ../vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite'
+                sh 'pwd'
             }
         }
         stage('PHP Syntax check') {
