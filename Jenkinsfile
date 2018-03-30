@@ -19,6 +19,7 @@ pipeline {
         }
         stage('PHP Syntax check') {
             steps {
+                sh 'echo PHP Syntax check'
                 /*
                 sh 'vendor/bin/parallel-lint web/modules/custom'
                 */
