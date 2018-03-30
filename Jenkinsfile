@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-                sh 'cd web && ../vendor/bin/drush http://127.0.0.1:8888 &'
+                sh 'cd web && ../vendor/bin/drush runserver http://127.0.0.1:8888 &'
                 sh 'curl -s http://127.0.0.1:8888'
                 sh 'cd web && php ./core/scripts/run-tests.sh --dburl sqlite://tmp/tests.sqlite --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --concurrency 4 Batch'
                 /*
