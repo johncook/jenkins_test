@@ -16,7 +16,6 @@ pipeline {
                 sh 'mkdir build/pdepend'
                 sh 'mkdir build/phpdox'
                 sh 'cd web && ../vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite'
-                sh 'pwd'
             }
         }
         stage('PHP Syntax check') {
@@ -29,7 +28,7 @@ pipeline {
         }
         stage('Test'){
             steps {
-                sh '(php -S localhost:8888 -t $(pwd)/drupal/web/ &) >> /dev/null 2>&1'
+                sh 'cd web && ../vendor/bin/drush http://127.0.0.1:8888 &'
                 sh 'cd web && php ./core/scripts/run-tests.sh --dburl sqlite://tmp/tests.sqlite --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --concurrency 4 Batch'
                 /*
                 sh 'vendor/bin/phpunit -c build/phpunit.xml || exit 0'
