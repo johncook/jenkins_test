@@ -17,7 +17,11 @@ pipeline {
                 sh 'mkdir build/phpdox'
             }
         }
-        stage('PHP Syntax check') { steps { sh 'vendor/bin/parallel-lint --exclude vendor/ .' } }
+        stage('PHP Syntax check') {
+            steps {
+                sh 'vendor/bin/parallel-lint web/modules/custom'
+            }
+        }
         stage('Test'){
             steps {
                 sh 'vendor/bin/phpunit -c build/phpunit.xml || exit 0'
